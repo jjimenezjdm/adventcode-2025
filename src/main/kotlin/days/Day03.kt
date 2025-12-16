@@ -39,8 +39,7 @@ object Day03 {
         val part2 = solvePart2(input)
         println("Part 2: $part2")
     }
-    
-    private fun solvePart1(input: List<String>): Int {
+  private fun solvePart1(input: List<String>): Int {
       var total = 0
 
       for (bank in input) {
@@ -64,8 +63,38 @@ object Day03 {
       return total
     }
     
-    private fun solvePart2(input: List<String>): Int {
-        // TODO: Implement part 2
-        return 0
+    private fun solvePart2(input: List<String>): Long {
+      var total = 0L
+
+      for (bank in input) {
+        val toRemove = bank.length - 12
+        var removalsLeft = toRemove
+        val stack = ArrayDeque<Char>()
+
+        for (c in bank) {
+          while (
+            stack.isNotEmpty() &&
+            removalsLeft > 0 &&
+            stack.last() < c
+          ) {
+            stack.removeLast()
+            removalsLeft--
+          }
+          stack.addLast(c)
+        }
+
+        repeat(removalsLeft) {
+          stack.removeLast()
+        }
+
+        val number = stack
+          .take(12)
+          .joinToString("")
+          .toLong()
+
+        total += number
+      }
+
+      return total
     }
 }
