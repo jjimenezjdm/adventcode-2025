@@ -9,6 +9,7 @@ fun main(args: Array<String>) {
     
     when (day) {
         1 -> Day01.solve()
+        2 -> Day02.solve()
         else -> println("Day $day not implemented yet")
     }
 }
